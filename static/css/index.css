@@ -1,0 +1,14 @@
+#user_entry {
+    display: none;
+    position: absolute;
+    width: 30%;
+    height: 30%;
+    top: 50%;
+    left: 50%;
+    margin-top: -20%;
+    margin-left: -20%;
+    overflow: auto;
+    z-index: 100;
+    background: white;
+    border-style: solid;
+}
