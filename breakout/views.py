@@ -1,6 +1,7 @@
 from django.shortcuts import render
-from .models import Top10
+
 from . import urls
+
 
 def index(request):
 

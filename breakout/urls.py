@@ -7,13 +7,13 @@ from django.http import HttpResponse, JsonResponse
 import time
 
 from . import views
-
+from breakout.models import Top10, Players
 
 handover = {
     'username': 'Kein Eintrag',
     'score': '0 Punkte'
 }
-print(handover)
+print("Uebergeben an die view:", handover)
 
 @csrf_exempt
 def request_handler(request):
@@ -24,7 +24,6 @@ def request_handler(request):
 
     handover['username'] = username
     handover['score'] = score
-
 
     time.sleep(2)
     # this.responseText
