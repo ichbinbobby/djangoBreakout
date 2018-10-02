@@ -45,13 +45,11 @@
 
     <div id="score_table" class="w3-table-all">
         <table>
-            {% if topTen %}
+            {% if top10 %}
             <tr>
-                <!--loopt nicht-->
-                {% for key, value in topTen.items %}
-                <td>
-                    {{key}} <br> {{value}}
-                </td>
+                {% for entry in topTen %}
+                <td>{{ entry.player.name }}</td>
+                <td>{{ entry.score }}</td>
                 {% endfor %}
             </tr>
             {% endif %}

@@ -1,42 +1,52 @@
 from django.shortcuts import render
 
 from . import urls
+from breakout.models import Players, Top10
 
 
-def index(request):
+def index(request):  # view wird beim laden rerendert
 
-    print("##### VIEW #####")
-    print("Request: " + str(request))
+    username = urls.data_entry['username']
+    score = urls.data_entry['score']
 
-    #username = request.POST.get("username")
-    #score = request.POST.get("score")
+    if player_exists(username):  # why is this true
+        # check if he improved his score
+        user = Players.objects.get(name=username)
+        player = Top10.objects.get(player=user)  # matching query does not exist
+        if player.score < score:
+            player.score = score
+            player.save()
+    else:
+        new_player = Players(name=username)
+        new_player.save()
+        new_entry = Top10.objects.create(
+            player=new_player,
+            score=score
+        )
+        new_entry.save()
 
-    username = urls.handover['username']
-    score = urls.handover['score']
+    top10 = Top10.objects.all()
 
-    print(username)
-    print(score)
-
-    #new_player = Top10.objects.get(name=username)
-    #if new_player.name is None:
-    #    new_player.name = username
-    #    new_player.score = score
-    #   new_player.save()
-
-    # top_ten = Top10.objects.values('name', 'score').order_by('score')
-
-    topTen = {
-        'name': username,
-        'score': score
-    }
-
-    print(topTen)
+    # can't output top10 when there is no data
 
     context = {
-        'topTen': topTen,
-        'username': "bla",
-        'score': "blub",
+        'topTen': top10,
     }
 
-
     return render(request, 'breakout/index.html', context)
+
+
+# get_or_create()
+def player_exists(name):
+
+    # Returns True if the QuerySet contains any results
+    # with objects.all() queryset is evaluated and exists
+
+    total = Players.objects.count()  # returns 1
+
+    if total > 1:
+        players = Players.objects.all()
+        if players.filter(name=name).exists():  # this is true
+            return True
+
+    return False
