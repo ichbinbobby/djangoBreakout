@@ -1,13 +1,11 @@
+document.getElementById("myForm").addEventListener("submit", submitEntry);
+
 function submitEntry (event) {
     event.preventDefault();
     var username = document.getElementById("username").value;
-    var points = window.score;
-    var result = {
-        username: username,
-        score: points
-    };
+    var score = window.score;
+    var result = {username, score};
 
-    // TODO close the form
     close_form();
 
     send(result)
@@ -20,19 +18,13 @@ function submitEntry (event) {
     );
 }
 
-
-document.getElementById("myForm").addEventListener("submit", submitEntry);
-
 function send(result){
 
     return new Promise(function(resolve, reject) {
-        // TODO use your query string
-        var text = params(result);
-        // "username=" + encodeURIComponent(result.username) + "&score=" + encodeURIComponent(result.points);
 
+        var text = form_query(result);
         var XHR = new XMLHttpRequest();
 
-        // for url pattern in urls.py
         XHR.open("POST", "server", true);
         XHR.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 
@@ -41,7 +33,6 @@ function send(result){
                 return;
             }
 
-            // TODO properly handle status ranges
             if (this.status < 300) {
                 resolve(this.status);
             } else {
@@ -75,7 +66,7 @@ function pairs(object) {
   return array;
 }
 
-function params(obj) {
+function form_query(obj) {
   var array = pairs(obj);
   var query = array.map(x => handler(x)).join("&");
   return query;
