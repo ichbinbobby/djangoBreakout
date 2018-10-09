@@ -3,8 +3,8 @@ var ctx = canvas.getContext("2d");
 var ballRadius = 10;
 var x = canvas.width/2;
 var y = canvas.height-30;
-var dx = 2;
-var dy = -2;
+var dx = 3;
+var dy = -3;
 var paddleHeight = 10;
 var paddleWidth = 75;
 var paddleX = (canvas.width-paddleWidth)/2;
@@ -21,6 +21,8 @@ var score = 0;
 var lives = 1;
 var bricks = [];
 var pause = false;
+var gameOver = false;
+
 for(var c=0; c<brickColumnCount; c++) {
     bricks[c] = [];
     for(var r=0; r<brickRowCount; r++) {
@@ -62,8 +64,9 @@ function collisionDetection() {
                     b.status = 0;
                     score++;
                     if(score == brickRowCount*brickColumnCount) {
+                        gameOver = true;
                         alert("YOU WIN, CONGRATS!");
-                        document.getElementById("user_entry").style.display = "block";
+                        open_form();
                         return;
 //                        document.location.reload();
                     }
@@ -134,8 +137,9 @@ function draw() {
         else {
             lives--;
             if(!lives) {
+                gameOver = true;
                 alert("GAME OVER");
-                document.getElementById("user_entry").style.display = "block";
+                open_form();
                 return;
 //                document.location.reload();
             }

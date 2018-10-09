@@ -10,10 +10,7 @@ class Players(models.Model):
 
 class Top10(models.Model):
     player = models.ForeignKey(Players, on_delete=models.CASCADE)
-    score = models.IntegerField(default=0)
-
-    def __str__(self):
-        return self.name
+    score = models.IntegerField(default=0, null=True)
 
     def show_score(self):
         return self.score

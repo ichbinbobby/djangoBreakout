@@ -25,7 +25,7 @@
             <tr>
               <td>
                 <label for="username">User: </label>
-                <input type="text" id="username" name="username" value="Larry">
+                <input type="text" id="username" name="username" value="">
               </td>
             </tr>
             <tr>
@@ -45,14 +45,16 @@
 
     <div id="score_table" class="w3-table-all">
         <table>
-            {% if top10 %}
             <tr>
-                {% for entry in topTen %}
+                <th>Name</th>
+                <th>Score</th>
+            </tr>
+            {% for entry in topTen %}
+            <tr>
                 <td>{{ entry.player.name }}</td>
                 <td>{{ entry.score }}</td>
-                {% endfor %}
             </tr>
-            {% endif %}
+            {% endfor %}
         </table>
     </div>
 
