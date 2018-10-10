@@ -66,7 +66,7 @@ function collisionDetection() {
                     if(score == brickRowCount*brickColumnCount) {
                         gameOver = true;
                         alert("YOU WIN, CONGRATS!");
-                        open_form();
+                        onGameOver(score);
                         return;
 //                        document.location.reload();
                     }
@@ -139,7 +139,7 @@ function draw() {
             if(!lives) {
                 gameOver = true;
                 alert("GAME OVER");
-                open_form();
+                onGameOver(score);
                 return;
 //                document.location.reload();
             }
